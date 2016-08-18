@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 
+typedef std::vector<std::string> string_vector;
+
 bool is_whitespace(char c) {
     return c == '\n' || c == ' ';
 }
@@ -10,7 +12,7 @@ bool is_single_char_tok(char c) {
     return c == '(' || c == ')';
 }
 
-void push_and_clear_current_token(std::vector<std::string> & tokens,
+void push_and_clear_current_token(string_vector & tokens,
                                   std::string & current_token) {
     if (!current_token.empty()) {
         tokens.push_back(current_token);
@@ -18,10 +20,10 @@ void push_and_clear_current_token(std::vector<std::string> & tokens,
     }
 }
 
-std::vector<std::string> input_to_tokens(std::string input) {
+string_vector input_to_tokens(std::string input) {
     using namespace std;
 
-    vector<string> tokens; // tokens.reserve(100) ?
+    string_vector tokens; // tokens.reserve(100) ?
     string current_token;
     current_token.reserve(10); // magic number
 
@@ -45,7 +47,7 @@ int main() {
     string input;
     getline(cin, input, ';');
 
-    vector<string> tokens = input_to_tokens(input);
+    string_vector tokens = input_to_tokens(input);
     for (auto token : tokens)
         cout << token << endl;
 }
