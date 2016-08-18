@@ -5,7 +5,7 @@
 typedef std::vector<std::string> string_vector;
 
 bool is_whitespace(char c) {
-    return c == '\n' || c == ' ';
+    return c == '\n' || c == '\t' || c == ' ';
 }
 
 bool is_single_char_tok(char c) {
