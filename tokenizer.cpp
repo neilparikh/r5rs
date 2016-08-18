@@ -10,6 +10,14 @@ bool is_single_char_tok(char c) {
     return c == '(' || c == ')';
 }
 
+void push_and_clear_current_token(std::vector<std::string> & tokens,
+                                  std::string & current_token) {
+    if (!current_token.empty()) {
+        tokens.push_back(current_token);
+        current_token.clear();
+    }
+}
+
 std::vector<std::string> input_to_tokens(std::string input) {
     using namespace std;
 
@@ -19,21 +27,15 @@ std::vector<std::string> input_to_tokens(std::string input) {
 
     for (auto c : input) {
         if (is_whitespace(c)) {
-            if (!current_token.empty()) {
-                tokens.push_back(current_token);
-                current_token.clear();
-            }
+            push_and_clear_current_token(tokens, current_token);
         } else if (is_single_char_tok(c)) {
-            if (!current_token.empty())
-                tokens.push_back(current_token);
+            push_and_clear_current_token(tokens, current_token);
             tokens.push_back(string(1, c));
-            current_token.clear();
         } else {
             current_token.push_back(c);
         }
     }
-    if (!current_token.empty())
-        tokens.push_back(string(current_token));
+    push_and_clear_current_token(tokens, current_token);
 
     return tokens;
 }
