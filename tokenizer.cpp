@@ -45,7 +45,7 @@ string_vector input_to_tokens(std::string input) {
 int main() {
     using namespace std;
     string input;
-    getline(cin, input, ';');
+    getline(cin, input, '|');
 
     string_vector tokens = input_to_tokens(input);
     for (auto token : tokens)
