@@ -28,10 +28,17 @@ string_vector input_to_tokens(std::string input) {
     current_token.reserve(10); // magic number
 
     bool is_comment = false;
+    bool is_string = false;
 
     for (auto c : input) {
         if (is_comment) {
             if (c == '\n') is_comment = false;
+            continue;
+        }
+
+        if (is_string) {
+            if (c == '"') is_string = false;
+            if (c != '\n') current_token.push_back(c);
             continue;
         }
 
@@ -43,6 +50,9 @@ string_vector input_to_tokens(std::string input) {
         } else if (c == ';') {
             push_and_clear_current_token(tokens, current_token);
             is_comment = true;
+        } else if (c == '"' && current_token.empty()) {
+            is_string = true;
+            current_token.push_back(c);
         } else {
             current_token.push_back(c);
         }
