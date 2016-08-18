@@ -27,12 +27,22 @@ string_vector input_to_tokens(std::string input) {
     string current_token;
     current_token.reserve(10); // magic number
 
+    bool is_comment = false;
+
     for (auto c : input) {
+        if (is_comment) {
+            if (c == '\n') is_comment = false;
+            continue;
+        }
+
         if (is_whitespace(c)) {
             push_and_clear_current_token(tokens, current_token);
         } else if (is_single_char_tok(c)) {
             push_and_clear_current_token(tokens, current_token);
             tokens.push_back(string(1, c));
+        } else if (c == ';') {
+            push_and_clear_current_token(tokens, current_token);
+            is_comment = true;
         } else {
             current_token.push_back(c);
         }
