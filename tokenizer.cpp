@@ -1,12 +1,9 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <cctype>
 
 typedef std::vector<std::string> string_vector;
-
-bool is_whitespace(char c) {
-    return c == '\n' || c == '\t' || c == ' ';
-}
 
 bool is_single_char_tok(char c) {
     return c == '(' || c == ')';
@@ -42,7 +39,7 @@ string_vector input_to_tokens(std::string input) {
             continue;
         }
 
-        if (is_whitespace(c)) {
+        if (isspace(c)) {
             push_and_clear_current_token(tokens, current_token);
         } else if (is_single_char_tok(c)) {
             push_and_clear_current_token(tokens, current_token);
