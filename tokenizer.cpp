@@ -17,7 +17,7 @@ void push_and_clear_current_token(string_vector & tokens,
     }
 }
 
-string_vector input_to_tokens(std::string input) {
+string_vector tokenize(std::string input) {
     using namespace std;
 
     string_vector tokens; // tokens.reserve(100) ?
@@ -64,7 +64,7 @@ int main() {
     string input;
     getline(cin, input, '|');
 
-    string_vector tokens = input_to_tokens(input);
+    string_vector tokens = tokenize(input);
     for (auto token : tokens)
         cout << token << endl;
 }
