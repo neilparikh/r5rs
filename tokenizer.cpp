@@ -34,8 +34,11 @@ string_vector tokenize(std::string input) {
         }
 
         if (is_string) {
-            if (c == '"') is_string = false;
             if (c != '\n') current_token.push_back(c);
+            if (c == '"') {
+                is_string = false;
+                push_and_clear_current_token(tokens, current_token);
+            }
             continue;
         }
 
@@ -47,7 +50,8 @@ string_vector tokenize(std::string input) {
         } else if (c == ';') {
             push_and_clear_current_token(tokens, current_token);
             is_comment = true;
-        } else if (c == '"' && current_token.empty()) {
+        } else if (c == '"') {
+            push_and_clear_current_token(tokens, current_token);
             is_string = true;
             current_token.push_back(c);
         } else {
