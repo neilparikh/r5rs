@@ -1,9 +1,8 @@
 #include <string>
 #include <iostream>
-#include <vector>
 #include <cctype>
 
-typedef std::vector<std::string> string_vector;
+#include "tokenizer.h"
 
 bool is_single_char_tok(char c) {
     return c == '(' || c == ')';
@@ -61,14 +60,4 @@ string_vector tokenize(std::string input) {
     push_and_clear_current_token(tokens, current_token);
 
     return tokens;
-}
-
-int main() {
-    using namespace std;
-    string input;
-    getline(cin, input, '|');
-
-    string_vector tokens = tokenize(input);
-    for (auto token : tokens)
-        cout << token << endl;
 }
